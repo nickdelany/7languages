@@ -9,8 +9,8 @@ e catch (Exception,
 )
 
 // all of these are true
-if (0) then(true println) else(false println)
-if ("") then(true println) else(false println)
+if (0, true println, false println)
+if ("", true println, false println)
 ((nil == false) == false) println
 ((nil == true) == false) println
 
