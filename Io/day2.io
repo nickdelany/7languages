@@ -22,3 +22,16 @@ a append(list(4,5,6))
 a append(list(7,8,9))
 t := 0
 a foreach (o, o foreach (i, t = t + i)) println
+
+# average a list
+c := list(9,8,7)
+
+List avg := method(t := 0
+  self foreach (i,
+    if ((i proto) != Number,
+      Exception raise ("list contains non-numeric elements"),
+      t = t + i))
+    t / (self size)
+)
+
+(c avg) println
