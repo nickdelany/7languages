@@ -39,11 +39,28 @@ List avg := method(t := 0
 Matrix := Object clone
 
 Matrix row := method(n, l := list(); for (i, 1, n, l append(0)))
-Matrix dim := method(x, y, self myList := list(); for (i, 1, y, self myList append(row(x))))
+Matrix alloc := method(x, y, l := list(); for (i, 1, y, l append(row(x))))
+Matrix dim := method(x, y, self myList := alloc(x, y))
 Matrix set := method(x, y, v, self myList at(y) atPut(x, v); self myList)
 Matrix get := method(x, y, self myList at(y) at(x))
+Matrix transpose := method(
+  x := self myList size;
+  y := self myList at(0) size;
+  t := Matrix clone
+  t dim (x, y)
+  for (i, 0, x - 1,
+    for (j, 0, y - 1,
+      t set(i, j, self get (j, i))
+    )
+  )
+  t
+)
 
 m := Matrix clone
 m dim(4, 6)
 m set(2, 4, 99)
 m get(2, 4) println
+
+t := m transpose
+
+(t get(4, 2) == m get (2, 4)) println
