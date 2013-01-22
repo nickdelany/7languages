@@ -16,7 +16,7 @@ Number setSlot("/", method(i, if (i == 0, 0, self div(i))))
 1/0 println
 
 # sum a 2d array
-a := List clone
+a := list()
 a append(list(1,2,3))
 a append(list(4,5,6))
 a append(list(7,8,9))
@@ -35,3 +35,15 @@ List avg := method(t := 0
 )
 
 (c avg) println
+
+Matrix := Object clone
+
+Matrix row := method(n, l := list(); for (i, 1, n, l append(0)))
+Matrix dim := method(x, y, self myList := list(); for (i, 1, y, self myList append(row(x))))
+Matrix set := method(x, y, v, self myList at(y) atPut(x, v); self myList)
+Matrix get := method(x, y, self myList at(y) at(x))
+
+m := Matrix clone
+m dim(4, 6)
+m set(2, 4, 99)
+m get(2, 4) println
