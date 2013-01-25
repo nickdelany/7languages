@@ -64,3 +64,43 @@ m get(2, 4) println
 t := m transpose
 
 (t get(4, 2) == m get (2, 4)) println
+
+file := File with("matrix.txt")
+file remove
+file openForUpdating
+(t myList) foreach(x, x foreach(y, file write("#{y} " interpolate)); file write("\n"))
+file close
+
+b := Matrix clone
+b myList := list()
+file openForReading
+line := file readLine
+while (line != nil,
+  b myList append((line split) map(asNumber))
+  line = file readLine)
+file close
+(t get(4, 2) == b get(4, 2)) println
+
+in := File standardInput
+ans := (Random value * 100) roundDown
+guess := -1
+lastGuess := -1
+tries := 10
+
+while (guess != ans and tries > 0,
+  lastGuess = guess
+  guess = in readLine("Guess (#{tries} left): " interpolate) asNumber
+  tries = tries - 1
+  if (lastGuess != -1 and guess != ans,
+    if ((ans - lastGuess) abs > (ans - guess) abs,
+      "Warmer" println,
+      "Colder" println)
+  )
+)
+
+if (guess == ans,
+  "Yay!" println,
+  ("Answer is #{ans}" interpolate) println
+)
+
+
